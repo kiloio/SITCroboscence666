@@ -182,23 +182,6 @@ class YDLidarScanner:
                 time.sleep(interval)
         
         return scans
-    
-    # def 数据处理_获取区间弧度均值(self, 数据, 弧度区间):
-    #     '''
-    #     弧度区间 = [(起始弧度1, 结束弧度1), (起始弧度2, 结束弧度2), ...]
-    #     '''
-    #     暂存数据 = []
-    #     for 单弧度区间 in 弧度区间:
-    #         本区间数据 = []
-    #         for 单数据 in 数据:
-    #             if 单弧度区间[0] <= 单数据[0] <= 单弧度区间[1] and self.config['min_range']<= 单数据[1] <= self.config['max_range']:
-    #                 本区间数据.append(单数据[1])
-    #         if len(本区间数据) > 0:
-    #             暂存数据.append(sum(本区间数据) / len(本区间数据))
-    #     if len(暂存数据) == 0:
-    #         return None
-    #     # print("数据处理暂存数据：",暂存数据,"\n")
-    #     return 暂存数据
 
     def 数据处理_获取区间弧度均值(self, 数据, 弧度区间):
         '''

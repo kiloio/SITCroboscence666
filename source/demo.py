@@ -3,7 +3,7 @@ from base import *
 from lidar import *
 from calibration import *
 robot = RobotController()
-lidar = YDLidarScanner("TMini")
+lidar = YDLidarScanner("X3")
 calibrator = WallCalibration(robot, lidar)
 
 def main():
