@@ -7,7 +7,7 @@ lidar = YDLidarScanner("TMini")
 calibrator = WallCalibration(robot, lidar)
 
 def main():
-    # robot.send_speed_control(100, 0)
+    robot.send_speed_control(100, 0)
     # time.sleep(2)
     # robot.send_speed_control(0, 0)
     # robot.send_speed_control(0, 100)
