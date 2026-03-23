@@ -3,16 +3,10 @@ from base import *
 from lidar import *
 from calibration import *
 robot = RobotController()
-lidar = YDLidarScanner("TMini")
+lidar = YDLidarScanner("X3")
 calibrator = WallCalibration(robot, lidar)
 
 def main():
-    robot.send_speed_control(100, 0)
-    # time.sleep(2)
-    # robot.send_speed_control(0, 0)
-    # robot.send_speed_control(0, 100)
-    # time.sleep(2)
-    # robot.send_speed_control(0, 0)
     calibrator.full_calibration(30)
     pass
 
