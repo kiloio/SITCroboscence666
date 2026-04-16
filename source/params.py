@@ -3,6 +3,7 @@ from typing import *
 from dataclasses import *
 sys.path.append('/home/sunrise/YDLidar-SDK/build/python')
 import ydlidar
+import Hobot.GPIO as GPIO
 
 @dataclass
 class FrameParams:
@@ -25,6 +26,12 @@ class FrameParams:
 class MotionBoardParams:
     PORT = "/dev/ttyS3"
     BAUDRATE = 115200
+
+@dataclass
+class GPIOParams:
+    MODE = GPIO.BCM            # 引脚编码方式为BCM
+    StartButtonNum = 23
+    StartButtonTriggerMode = 0 # 低电平触发
 
 class LidarParams:
     """雷达配置管理器"""
