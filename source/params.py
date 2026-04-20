@@ -4,6 +4,15 @@ from dataclasses import *
 sys.path.append('/home/sunrise/YDLidar-SDK/build/python')
 import ydlidar
 import Hobot.GPIO as GPIO
+import numpy as np
+
+@dataclass
+class ChassisParams:
+    """机器人底盘物理参数（单位：米，弧度）"""
+    旋转补偿 = 1.1502 # 主要作用于RobotController:twist_to_wheel_speeds
+    行进补偿 = 1.11  # 仅对RobotController:_move_straight有效
+    wheel_base: float = 0.11 * 旋转补偿      # 左右轮中心距，典型值 0.3m，根据实际测量修改
+    wheel_diameter: float = 0.065 # 轮子直径
 
 @dataclass
 class FrameParams:
@@ -32,6 +41,29 @@ class GPIOParams:
     MODE = GPIO.BCM            # 引脚编码方式为BCM
     StartButtonNum = 23
     StartButtonTriggerMode = 0 # 低电平触发
+
+@dataclass
+class AppleHSVParams:
+    lower_red = np.array([-30, 90, 128])
+    upper_red = np.array([30, 255, 255])
+    lower_green = np.array([110, 10, 10])
+    upper_green = np.array([150, 255, 255])
+    lower_purple = np.array([150, 15, 60])
+    upper_purple = np.array([170, 30, 90])
+    lower_yellow = np.array([50, 20, 50])
+    upper_yellow = np.array([90, 60, 150])
+    threshold = {
+                "Red":[lower_red,upper_red],
+                "Green":[lower_green,upper_green],
+                "Purple":[lower_purple,upper_purple],
+                "Yellow":[lower_yellow,upper_yellow],
+                }
+@dataclass
+class AppleInfo:
+    num: int
+    color: str
+    center_x: int
+    center_y: int
 
 class LidarParams:
     """雷达配置管理器"""
