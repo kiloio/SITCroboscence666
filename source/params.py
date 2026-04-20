@@ -44,20 +44,22 @@ class GPIOParams:
 
 @dataclass
 class AppleHSVParams:
-    lower_red = np.array([-30, 90, 128])
-    upper_red = np.array([30, 255, 255])
-    lower_green = np.array([110, 10, 10])
-    upper_green = np.array([150, 255, 255])
-    lower_purple = np.array([150, 15, 60])
-    upper_purple = np.array([170, 30, 90])
-    lower_yellow = np.array([50, 20, 50])
-    upper_yellow = np.array([90, 60, 150])
-    threshold = {
-                "Red":[lower_red,upper_red],
-                "Green":[lower_green,upper_green],
-                "Purple":[lower_purple,upper_purple],
-                "Yellow":[lower_yellow,upper_yellow],
-                }
+    color_ranges = {
+        "Red": [
+            (np.array([0, 90, 128]), np.array([30, 255, 255])),    # 红色-低
+            (np.array([160, 90, 128]), np.array([180, 255, 255]))  # 红色-高
+        ],
+        "Green": [
+            (np.array([110, 10, 10]), np.array([150, 255, 255]))
+        ],
+        "Purple": [
+            (np.array([150, 15, 60]), np.array([170, 30, 90]))
+        ],
+        "Yellow": [
+            (np.array([50, 20, 50]), np.array([90, 60, 150]))
+        ],
+    }
+
 @dataclass
 class AppleInfo:
     num: int

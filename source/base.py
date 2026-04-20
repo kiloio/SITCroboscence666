@@ -330,7 +330,7 @@ class RobotController:
                 target_angle_rad = math.radians(target_pose[2])
                 self._rotate_angle(target_angle_rad, angular_speed)
 
-    def navigate_waypoints(self, target_poses, linear_speed=0.2, angular_speed=0.5):
+    def navigate_waypoints(self, target_poses, linear_speed=0.15, angular_speed=0.5):
         """
         按照全局坐标点序列进行导航。
         
