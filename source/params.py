@@ -41,6 +41,7 @@ class GPIOParams:
     MODE = GPIO.BCM            # 引脚编码方式为BCM
     StartButtonNum = 23
     StartButtonTriggerMode = 0 # 低电平触发
+    StartLED = 24
 
 @dataclass
 class AppleHSVParams:
@@ -62,10 +63,23 @@ class AppleHSVParams:
 
 @dataclass
 class AppleInfo:
-    num: int
     color: str
     center_x: int
     center_y: int
+    x: int
+    y: int
+    w: int
+    h: int
+
+@dataclass
+class QRInfo:
+    qr_data: str
+    center_x: int
+    center_y: int
+    x: int
+    y: int
+    w: int
+    h: int
 
 class LidarParams:
     """雷达配置管理器"""

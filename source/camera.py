@@ -4,6 +4,7 @@ from hobot_vio import libsrcampy as srcampy
 import time
 from dataclasses import dataclass
 from params import *
+from pyzbar.pyzbar import decode
 
 class Camera:
 
@@ -72,9 +73,6 @@ class Camera:
                 if cnt.shape[0] < 150:
                     continue
                 
-                # 绘制轮廓（绿色线条）
-                cv2.drawContours(result, [cnt], -1, (0, 255, 0), 2)
-                
                 # 计算外接矩形，得到中心点
                 x, y, w, h = cv2.boundingRect(cnt)
                 center_x = int(x + w / 2)
@@ -82,8 +80,33 @@ class Camera:
                 cv2.circle(result, (center_x, center_y), 5, (0, 255, 0), -1)
                 
                 # 创建物体信息对象
-                apple = AppleInfo(i, color_name, center_x, center_y)
+                apple = AppleInfo(color_name, center_x, center_y, x, y, w, h)
                 objects_list.append(apple)
+
+                # 绘制轮廓和文字
+                cv2.drawContours(result, [cnt], -1, (0, 255, 0), 2)
+                cv2.putText(result, color_name, (center_x, center_y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
                 i += 1
         
         return objects_list, result
+
+    def decode_QR_code(self, image):
+        """
+        识别图像中的二维码
+        参数: image - BGR 格式图像
+        返回: 识别结果列表，每个元素包含二维码内容和位置信息
+        """
+        decoded_objects = []
+        barcodes = decode(image)
+        result = image.copy()
+        
+        for barcode in barcodes:
+            qr_data = barcode.data.decode('utf-8')
+            x, y, w, h = barcode.rect
+            center_x = int(x + w / 2)
+            center_y = int(y + h / 2)
+            decoded_objects.append(QRInfo(qr_data, center_x, center_y, x, y, w, h))
+            cv2.rectangle(result, (x, y), (x + w, y + h), (255, 0, 0), 2)
+            cv2.putText(result, qr_data, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 2)
+        
+        return decoded_objects, result
